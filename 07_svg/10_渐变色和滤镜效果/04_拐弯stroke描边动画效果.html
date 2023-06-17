@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-image: url(../../images/grid.png);
+    }
+
+    svg {
+      background-color: rgba(255, 0, 0, 0.1);
+    }
+
+    #movePath {
+      /* 虚线 */
+      stroke-dasharray: 140px;
+      /* 不可见 移动到可见 */
+      stroke-dashoffset: 140px;
+      animation: strokeMove 3s linear forwards infinite;
+    }
+
+    @keyframes strokeMove {
+      100% {
+        stroke-dashoffset: 0px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+    <path id="movePath" d="M 100 60, 200 60, 200 100" stroke="red" stroke-width="6" fill="transparent"></path>
+  </svg>
+</body>
+</html>

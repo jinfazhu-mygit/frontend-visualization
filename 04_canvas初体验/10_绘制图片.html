@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-image: url(../images/grid.png);
+    }
+    
+    canvas {
+      background-color: rgba(255, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="test" width="300" height="300"></canvas>
+  <image id="img" src="../images/backdrop.png" style="visibility: hidden;"></image>
+
+  <script>
+    window.onload = function () {
+      const canvasEl = document.getElementById('test')
+      if(!canvasEl.getContext) return
+      const canvasCtx = canvasEl.getContext('2d')
+
+      // 创建image对象
+      const image = new Image()
+      image.src = '../images/backdrop.png'
+
+      // 图片加载完成时
+      image.onload = function() {
+        // canvas画图
+        canvasCtx.drawImage(image, 0, 0)
+
+        // 后续线条在图片的基础上显示(后绘制的图案会层叠上去)
+        canvasCtx.beginPath()
+        canvasCtx.moveTo(40, 100)
+        canvasCtx.lineTo(50, 30)
+        canvasCtx.lineTo(70, 80)
+        canvasCtx.lineTo(130, 30)
+
+        canvasCtx.stroke()
+      }
+
+      // document方式绘制
+      const imgEl = document.getElementById('img')
+      canvasCtx.drawImage(imgEl, 0, 150)
+    }
+  </script>
+</body>
+</html>

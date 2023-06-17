@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="main" style="height: 400px"></div>
+
+  <script src="./echarts.js"></script>
+
+  <script>
+    window.onload = function() {
+      const charts = echarts.init(document.getElementById('main'), null, { renderer: 'svg' })
+  
+      const options = {
+        grid: {
+  show: true,
+  backgroundColor: 'rgba(0, 255, 0, 0.1)',
+  // grid展示的情况下，默认会有白边，可通过设置borderWidth为0进行消除
+  borderWidth: 0,
+  // top: 0,
+  // bottom: 0,
+  // 靠左且不显示Y轴内容
+  top: 0,
+  left: 0,
+  // right: 0,
+  containLabel: false,
+},
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        },
+        yAxis: {},
+        series: [
+          {
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+          }
+        ]
+      }
+  
+      charts.setOption(options)
+    }
+  </script>
+</body>
+
+</html>

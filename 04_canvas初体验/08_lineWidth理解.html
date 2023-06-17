@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-image: url('../images//grid.png');
+    }
+    canvas {
+      background-color: rgba(234, 118, 118, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="300" height="300">您的浏览器不支持canvas，请升级浏览器</canvas>
+
+  <script>
+    // 需要在页面加载完成后获取节点
+    window.onload = function() {
+      const canvasEl = document.getElementById('canvas')
+      // 对象方式打印节点
+      // console.log('%O', canvasEl)
+      if(!canvasEl.getContext) return
+      // canvasRenderingContext2D
+      const canvasContext = canvasEl.getContext('2d')
+      // console.log(canvasContext)
+      // 创建边框矩形
+      canvasContext.strokeStyle = 'blue'
+      // 仔细体会下两个矩形的区别(一个会自动填充，一个刚好到边界)
+      // 不能完全被clear,还包含0.5px外部 + 0.5px填充色
+      canvasContext.strokeRect(100, 100, 100, 50)
+      // 刚好完全被clear
+      // canvasContext.strokeRect(100.5, 100.5, 99, 49)
+      // 矩形的橡皮擦x, y, width, height
+      // canvasContext.clearRect(100, 100, 100, 50)
+    }
+  </script>
+</body>
+</html>

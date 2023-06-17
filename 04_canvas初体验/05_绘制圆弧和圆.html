@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-image: url('../images//grid.png');
+    }
+    canvas {
+      background-color: rgba(234, 118, 118, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="300" height="300">您的浏览器不支持canvas，请升级浏览器</canvas>
+
+  <script>
+    // 需要在页面加载完成后获取节点
+    window.onload = function() {
+      const canvasEl = document.getElementById('canvas')
+      if(!canvasEl.getContext) return
+      // canvasRenderingContext2D
+      const canvasContext = canvasEl.getContext('2d')
+
+      // 方式一(推荐)
+      canvasContext.beginPath()
+      // x, y, r, startRad, endRad, antiClock逆时针默认为false
+      canvasContext.arc(50, 50, 25, 0, 2 * Math.PI, false)
+      canvasContext.stroke()
+      
+      canvasContext.beginPath()
+      canvasContext.arc(150, 250, 25, 0, Math.PI) // 默认顺时针
+      canvasContext.stroke()
+
+      // 方式二
+      // canvasContext.beginPath()
+      // canvasContext.arc(50, 50, 25, 0, 2 * Math.PI, false)
+      // // 手动移动画笔到下一个圆弧的起始点
+      // canvasContext.moveTo(175, 250)
+      // canvasContext.arc(150, 250, 25, 0, Math.PI) // 默认顺时针
+      // // canvasContext.closePath()
+      // canvasContext.stroke()
+    }
+  </script>
+</body>
+</html>

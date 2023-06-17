@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-image: url('../images//grid.png');
+    }
+    canvas {
+      background-color: rgba(255, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="300" height="300">您的浏览器不支持canvas，请升级浏览器</canvas>
+
+  <script>
+    // 需要在页面加载完成后获取节点
+    window.onload = function() {
+      const canvasEl = document.getElementById('canvas')
+      // 对象方式打印节点
+      // console.log('%O', canvasEl)
+      if(!canvasEl.getContext) return
+      // canvasRenderingContext2D
+      const canvasContext = canvasEl.getContext('2d')
+
+      // 1.save形变的状态
+      canvasContext.save()
+      // 2.形变translate坐标原点为100， 100
+      canvasContext.translate(100, 100)
+      // 形变rotate图形45度(π / 4)
+      canvasContext.rotate(Math.PI / 4)
+      // 形变scale图形大小扩大两倍
+      canvasContext.scale(2, 2)
+      // 3.绘制
+      canvasContext.fillRect(0, 0, 50, 50)
+      // 4.restore恢复原状态
+      canvasContext.restore()
+
+      // 形变四部曲
+      canvasContext.save()
+      canvasContext.translate(20, 20) // translate坐标原点为20, 20
+      canvasContext.strokeRect(0, 0, 80, 80)
+      canvasContext.restore()
+    }
+  </script>
+</body>
+</html>

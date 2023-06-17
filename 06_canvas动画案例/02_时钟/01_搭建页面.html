@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-image: url('../../images/grid.png');
+    }
+    
+    canvas {
+      background-color: rgba(255, 0, 0, 0.1);
+    }
+
+    .container {
+      margin: 10px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50px;
+      background-color: black !important;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <canvas id="canvas" width="300" height="300">您的浏览器不支持canvas，请升级浏览器</canvas>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const canvasEl = document.getElementById('canvas')
+      if (!canvasEl.getContext) return
+      const ctx = canvasEl.getContext('2d')
+
+      ctx.translate(0, 0)
+      requestAnimationFrame(draw)
+
+      function draw() {
+        // 清除画布
+        ctx.clearRect(0, 0, 300, 300)
+        ctx.save()
+
+        // 1.绘制圆盘
+        ctx.save() // 圆盘start
+        ctx.fillStyle = '#fff'
+        ctx.translate(150, 150)
+        ctx.beginPath()
+        ctx.arc(0, 0, 130, 0, Math.PI * 2)
+        ctx.fill()
+
+        // 中心点
+        ctx.save()
+        ctx.fillStyle = 'black'
+        ctx.beginPath()
+        ctx.arc(0, 0, 2, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.restore()
+        
+        ctx.restore() // 圆盘end
+
+        // 2.绘制圆盘内数字
+        ctx.save()
+
+        ctx.translate(150, 150)
+
+        ctx.font = '30px fangsong'
+        ctx.textBaseline = 'middle'
+        ctx.textAlign = 'center'
+        
+        ctx.fillText(3, 100, 0)
+        // 根据弧度和数字数组获取相应的位置
+        const nums = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2]
+        
+        for(let i = 0; i < nums.length; i++) {
+          // 3对应的弧度：Math.PI * 2 / 12 * 0
+          // 4对应的弧度：Math.PI * 2 / 12 * 1
+          // nums[i]对应的弧度：Math.PI * 2 / 12 * i 
+          // nums[i]对应的x坐标为Math.cos(Math.PI / 6 * i) * R
+          const xAxis = Math.cos(Math.PI / 6 * i) * 100
+          const yAxis = Math.sin(Math.PI / 6 * i) * 100
+          ctx.fillText(nums[i], xAxis, yAxis)
+        }
+
+        ctx.restore()
+
+        ctx.restore()
+        requestAnimationFrame(draw)
+      }
+    }
+  </script>
+</body>
+
+</html>

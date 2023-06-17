@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-image: url('../../images/grid.png');
+    }
+
+    canvas {
+      background-color: rgba(255, 0, 0, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="300" height="300">您的浏览器不支持canvas，请升级浏览器</canvas>
+
+  <script>
+    window.onload = function () {
+      const canvasEl = document.getElementById('canvas')
+      if (!canvasEl.getContext) return
+      const ctx = canvasEl.getContext('2d')
+
+      let sun = new Image()
+      sun.src = '../../images/canvas_sun.png'
+      let earth = new Image()
+      earth.src = '../../images/canvas_earth.png'
+      let moon = new Image()
+      moon.src = '../../images/canvas_moon.png'
+
+      ctx.translate(0, 0)
+      requestAnimationFrame(draw)
+
+      function draw() {
+        const time = new Date()
+        const second = time.getSeconds()
+        const milliSecond = time.getMilliseconds()
+        // 清除画布
+        ctx.clearRect(0, 0, 300, 300)
+        // 四部曲
+        ctx.save()
+
+        // 背景和地球路径绘制
+        ctx.save() // bg start
+        ctx.drawImage(sun, 0, 0) // 背景图
+        ctx.restore() // bg end
+
+        // 地球展示
+        ctx.save() // earth start
+        ctx.translate(150, 150) // 太阳坐标系
+        ctx.beginPath()
+        ctx.strokeStyle = 'rgba(0, 255, 268, 0.2)'
+        ctx.arc(0, 0, 105, 0, Math.PI * 2)
+        ctx.stroke()
+        // 地球旋转 60s一圈
+        ctx.rotate(Math.PI * 2 / 60 * second + Math.PI * 2 / 60 / 1000 * milliSecond)
+        ctx.translate(105, 0) // 太阳坐标系
+        ctx.drawImage(earth, -12, -12)
+
+        // 月球展示
+        ctx.save() // moon start
+        // 月球旋转 10s一圈
+        ctx.rotate(Math.PI * 2 / 10 * second + Math.PI * 2 / 10 / 1000 * milliSecond)
+        ctx.translate(28, 0) // 月球坐标系
+        ctx.drawImage(moon, -3.5, -3.5)
+        ctx.restore() // moon end
+
+        ctx.restore() // earth end
+
+        ctx.restore()
+        requestAnimationFrame(draw)
+      }
+    }
+  </script>
+</body>
+
+</html>
